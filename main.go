@@ -1,24 +1,34 @@
 package main
 
 import (
-	//	service "eric.com/go/ch1/pk1"
-
-	"fmt"
-	"log"
-	"time"
-
-	dbmenu "eric.com/go/ch1/pk2"
+	service "eric.com/go/ch1/pk1"
+	//"fmt"
+	//"time"
+	//dbmenu "eric.com/go/ch1/pk2"
+	//	jwtctrl "eric.com/go/ch1/pk3"
 	//"encoding/json"
 )
 
 func main() {
-	fmt.Println(time.Now())
-	fmt.Println(time.Now())
+	/*
+		fmt.Println(time.Now())
+		token := jwtctrl.GenJWToken(36000, 1, "eric", "10.8.0.116")
+		fmt.Println("token==>", token)
 
-	//service.ServerOn()
+		ret, err := jwtctrl.ParseToken(token, "10.8.0.111")
+		if err != nil {
+			fmt.Println(err)
+		} else {
+			fmt.Printf("userinfo: %v\n", ret.RequestIp)
+		}
+
+		fmt.Println(time.Now())
+	*/
+	service.ServerOn()
 
 }
 
+/*
 func insertexample() {
 	var db = dbmenu.ConnectDB2("134.251.80.228", "55000", "CR", "CRAP1", "1qaz2wsx")
 	data := [][]interface{}{{"R1"}, {"R2"}, {"R3"}, {"R4"}}
@@ -40,3 +50,4 @@ func selectexample() {
 		fmt.Println(data)
 	}
 }
+*/

@@ -19,6 +19,7 @@ type CustomRoute struct {
 //set handler map
 var functions = map[string]http.HandlerFunc{
 	"sayhelloName": sayhelloName,
+	"getToken":     getToken,
 }
 
 func readConfig() []CustomRoute {

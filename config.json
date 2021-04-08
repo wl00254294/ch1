@@ -3,5 +3,11 @@
     "method":"GET",
     "path":"/sayhelloName",
     "handlefunc":"sayhelloName"
+},
+{
+    "name":"getToken",
+    "method":"GET",
+    "path":"/getToken",
+    "handlefunc":"getToken"
 }
 ]
