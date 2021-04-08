@@ -20,14 +20,14 @@ func main() {
 }
 
 func insertexample() {
-	var db = dbmenu.ConnectDB2()
+	var db = dbmenu.ConnectDB2("134.251.80.228", "55000", "CR", "CRAP1", "1qaz2wsx")
 	data := [][]interface{}{{"R1"}, {"R2"}, {"R3"}, {"R4"}}
 	dbmenu.InUpDeDB2(db, "INSERT INTO ECSCRDB.eric_test (A) VALUES (?)", data, 1000)
 	dbmenu.CloseDB2(db)
 }
 
 func selectexample() {
-	var db = dbmenu.ConnectDB2()
+	var db = dbmenu.ConnectDB2("134.251.80.228", "55000", "CR", "CRAP1", "1qaz2wsx")
 	ch := make(chan string, 100000)
 	log.Println("==Start select")
 	testary := []interface{}{"5466010000021191", 144} //parameter

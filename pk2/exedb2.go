@@ -10,9 +10,9 @@ import (
 	a "github.com/ibmdb/go_ibm_db"
 )
 
-func ConnectDB2() *a.DBP {
+func ConnectDB2(host string, port string, dbname string, user string, pwd string) *a.DBP {
 
-	con := "HOSTNAME=134.251.80.228;PORT=55000;DATABASE=CR;UID=CRAP1;PWD=1qaz2wsx"
+	con := "HOSTNAME=" + host + ";PORT=" + port + ";DATABASE=" + dbname + ";UID=" + user + ";PWD=" + pwd
 	pool := a.Pconnect("PoolSize=1000")
 
 	// SetConnMaxLifetime will take the value in SECONDS
