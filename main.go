@@ -1,15 +1,20 @@
 package main
 
 import (
+	"fmt"
+
 	service "eric.com/go/ch1/pk1"
+
 	//"fmt"
-	//"time"
+	"time"
 	//dbmenu "eric.com/go/ch1/pk2"
 	//	jwtctrl "eric.com/go/ch1/pk3"
 	//"encoding/json"
 )
 
 func main() {
+
+	fmt.Println(time.Now())
 	/*
 		fmt.Println(time.Now())
 		token := jwtctrl.GenJWToken(36000, 1, "eric", "10.8.0.116")

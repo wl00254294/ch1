@@ -14,13 +14,16 @@ func getToken(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("Addr", r.RemoteAddr)
 	fmt.Println("scheme", r.URL.Scheme)
 	fmt.Println(r.Form["url_long"])
-	token := jwtctrl.GenJWToken(36000, 1, "eric", r.RemoteAddr)
+	token := jwtctrl.GenJWToken(36000, 1, "eric")
 
 	fmt.Fprintf(w, "tokem:"+token)
 }
 
 func sayhelloName(w http.ResponseWriter, r *http.Request) {
-	token := ""
+
+	auth := r.Header.Get("Authorization")
+
+	token := strings.Split(auth, "Bearer ")[1]
 	r.ParseForm()
 	fmt.Println(r.Form)
 	fmt.Println("path", r.URL.Path)
@@ -30,18 +33,9 @@ func sayhelloName(w http.ResponseWriter, r *http.Request) {
 		fmt.Println("key:", k)
 		fmt.Println("val:", strings.Join(v, ""))
 
-		if k == "token" {
-			token = strings.Join(v, "")
-		}
 	}
 
-	if token == "" {
-		fmt.Fprintf(w, "token parameter should add!")
-		return
-	} else {
-		fmt.Println(token)
-	}
-	ret, err := jwtctrl.ParseToken(token, r.RemoteAddr)
+	ret, err := jwtctrl.ParseToken(token)
 	if err != nil {
 		fmt.Fprintf(w, "token is invaild!")
 		return

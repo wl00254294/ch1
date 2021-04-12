@@ -12,15 +12,13 @@ const (
 )
 
 type CustomClaims struct {
-	UserId    int64
-	RequestIp string
+	UserId int64
 	jwt.StandardClaims
 }
 
-func GenJWToken(efftime int, userid int64, user string, ip string) string {
+func GenJWToken(efftime int, userid int64, user string) string {
 	customClaims := &CustomClaims{
-		UserId:    userid, //用户id
-		RequestIp: ip,
+		UserId: userid, //用户id
 		StandardClaims: jwt.StandardClaims{
 			ExpiresAt: time.Now().Add(time.Duration(efftime) * time.Second).Unix(),
 			Issuer:    user,
@@ -37,7 +35,7 @@ func GenJWToken(efftime int, userid int64, user string, ip string) string {
 	return tokenString
 }
 
-func ParseToken(tokenString string, reqip string) (*CustomClaims, error) {
+func ParseToken(tokenString string) (*CustomClaims, error) {
 	token, err := jwt.ParseWithClaims(tokenString, &CustomClaims{}, func(token *jwt.Token) (interface{}, error) {
 		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
 			return nil, fmt.Errorf("exception")
@@ -47,12 +45,7 @@ func ParseToken(tokenString string, reqip string) (*CustomClaims, error) {
 	})
 	if claims, ok := token.Claims.(*CustomClaims); ok && token.Valid {
 
-		if claims.RequestIp == reqip {
-			return claims, nil
-		} else {
-			return nil, fmt.Errorf("exception: requst ip changed!")
-		}
-
+		return claims, nil
 	} else {
 		return nil, err
 	}
