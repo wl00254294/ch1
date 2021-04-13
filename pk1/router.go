@@ -2,10 +2,11 @@ package service
 
 import (
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
+	"log"
 	"net/http"
 
+	message "eric.com/go/ch1/msg"
 	"github.com/gorilla/mux"
 )
 
@@ -26,7 +27,8 @@ func readConfig() []CustomRoute {
 
 	data, err := ioutil.ReadFile("./config.json")
 	if err != nil {
-		fmt.Print(err)
+
+		log.Printf("Error:%s, %s", message.Content["configreaderror"].Code, err)
 	}
 
 	var obj []CustomRoute
@@ -34,7 +36,7 @@ func readConfig() []CustomRoute {
 	// unmarshall it
 	err = json.Unmarshal(data, &obj)
 	if err != nil {
-		fmt.Println("error:", err)
+		log.Printf("Error:%s, %s", message.Content["jsonconverror"].Code, err)
 	}
 
 	return obj
@@ -49,10 +51,10 @@ func ServerOn() {
 	for _, dt := range obj {
 
 		if functions[dt.HandleFunc] == nil {
-			fmt.Printf("Error: %s not found\n", dt.HandleFunc)
+			log.Printf("Error:%s, %s", message.Content["configdataerror"].Code, dt.HandleFunc)
 		} else {
 			srv.HandleFunc(dt.Path, functions[dt.HandleFunc]).Methods(dt.Method)
-			fmt.Printf("Success: %s add Ok!\n", dt.HandleFunc)
+			log.Printf("Success: %s add Ok!\n", dt.HandleFunc)
 		}
 
 	}

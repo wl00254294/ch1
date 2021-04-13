@@ -4,9 +4,11 @@ import (
 	"database/sql"
 	"encoding/json"
 	"fmt"
+	"log"
 	"reflect"
 	"runtime"
 
+	message "eric.com/go/ch1/msg"
 	a "github.com/ibmdb/go_ibm_db"
 )
 
@@ -49,6 +51,7 @@ func exquery(db *a.DBP, sql2 string, ch chan string, parm []interface{}) {
 
 	st, err := db.Prepare(sql2)
 	if err != nil {
+		log.Printf("Error:%s, %s", message.Content["sqlqryerror"].Code, err)
 		fmt.Println(err)
 	}
 	rows, err := st.Query(parm...)

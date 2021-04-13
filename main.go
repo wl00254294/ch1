@@ -3,10 +3,9 @@ package main
 import (
 	"fmt"
 
-	service "eric.com/go/ch1/pk1"
-
-	//"fmt"
-	"time"
+	message "eric.com/go/ch1/msg"
+	//service "eric.com/go/ch1/pk1"
+	//"time"
 	//dbmenu "eric.com/go/ch1/pk2"
 	//	jwtctrl "eric.com/go/ch1/pk3"
 	//"encoding/json"
@@ -14,7 +13,10 @@ import (
 
 func main() {
 
-	fmt.Println(time.Now())
+	d := message.Content["jsonconverror"]
+
+	fmt.Println(d.Message)
+	//fmt.Println(time.Now())
 	/*
 		fmt.Println(time.Now())
 		token := jwtctrl.GenJWToken(36000, 1, "eric", "10.8.0.116")
@@ -29,7 +31,7 @@ func main() {
 
 		fmt.Println(time.Now())
 	*/
-	service.ServerOn()
+	//service.ServerOn()
 
 }
 
