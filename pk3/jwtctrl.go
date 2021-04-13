@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"time"
 
+	dao "eric.com/go/ch1/dao"
 	"github.com/dgrijalva/jwt-go"
 )
 
@@ -16,12 +17,35 @@ type CustomClaims struct {
 	jwt.StandardClaims
 }
 
-func GenJWToken(efftime int, userid int64, user string) string {
+// swagger:response CustomToken
+type CustomToken struct {
+	// The Userid
+	Userid int64 `json:"userid"`
+	// Response token
+	Token string `json:"token"`
+	// Expired Time
+	Expiresat time.Time `json:"expiresat"`
+	// token status
+	Message string `json:"message"`
+}
+
+func GenJWToken(efftime int, user dao.User) CustomToken {
+
+	var userid int64
+	var expirtime int64
+	if user.Username == "eric" && user.Password == "eric" {
+		userid = 1
+		expirtime = time.Now().Add(time.Duration(efftime) * time.Second).Unix()
+	} else {
+
+		return CustomToken{0, "", time.Now(), "Username/Password invaild!"}
+	}
+
 	customClaims := &CustomClaims{
 		UserId: userid, //用户id
 		StandardClaims: jwt.StandardClaims{
-			ExpiresAt: time.Now().Add(time.Duration(efftime) * time.Second).Unix(),
-			Issuer:    user,
+			ExpiresAt: expirtime,
+			Issuer:    user.Username,
 		},
 	}
 
@@ -29,10 +53,10 @@ func GenJWToken(efftime int, userid int64, user string) string {
 	tokenString, err := token.SignedString([]byte(SECRETKEY))
 	if err != nil {
 		fmt.Println(err)
-		return ""
+		return CustomToken{0, "", time.Now(), "Token Generate Fail!"}
 	}
 
-	return tokenString
+	return CustomToken{userid, tokenString, time.Unix(expirtime, 0), "OK"}
 }
 
 func ParseToken(tokenString string) (*CustomClaims, error) {

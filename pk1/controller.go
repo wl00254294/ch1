@@ -1,22 +1,50 @@
 package service
 
 import (
+	"encoding/json"
 	"fmt"
 	"net/http"
 	"strings"
 
+	dao "eric.com/go/ch1/dao"
 	jwtctrl "eric.com/go/ch1/pk3"
 )
 
 func getToken(w http.ResponseWriter, r *http.Request) {
-	fmt.Println(r.Form)
-	fmt.Println("path", r.URL.Path)
-	fmt.Println("Addr", r.RemoteAddr)
-	fmt.Println("scheme", r.URL.Scheme)
-	fmt.Println(r.Form["url_long"])
-	token := jwtctrl.GenJWToken(36000, 1, "eric")
+	// swagger:route POST /getToken Auth User
+	//
+	// get JWT
+	//
+	//
+	//     Consumes:
+	//     - application/json
+	//
+	//     Produces:
+	//     - application/json
+	//
+	//     Schemes: http
+	//
+	//     Deprecated: false
+	//
+	//
+	//     Responses:
+	//       200: CustomToken
+	var p dao.User
+	err := json.NewDecoder(r.Body).Decode(&p)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
 
-	fmt.Fprintf(w, "tokem:"+token)
+	token := jwtctrl.GenJWToken(3600, p)
+	js, err := json.Marshal(token)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(js)
+
 }
 
 func sayhelloName(w http.ResponseWriter, r *http.Request) {

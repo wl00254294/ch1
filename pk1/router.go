@@ -59,6 +59,8 @@ func ServerOn() {
 
 	}
 
+	fs := http.FileServer(http.Dir("./swaggerui"))
+	srv.PathPrefix("/swaggerui/").Handler(http.StripPrefix("/swaggerui/", fs))
 	http.ListenAndServe(":8080", srv)
 
 }

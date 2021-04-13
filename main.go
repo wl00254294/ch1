@@ -1,11 +1,31 @@
+// Package classification GoLang API.
+//
+// the purpose of this application is to provide an application
+// that is using plain go code to define an API
+//
+// This should demonstrate all the possible comment annotations
+// that are available to turn go code into a fully compliant swagger 2.0 spec
+//
+// Terms Of Service:
+//
+// there are no TOS at this moment, use at your own risk we take no responsibility
+//
+//     Schemes: http, https
+//     Host: localhost
+//     BasePath: /
+//     Version: 0.0.1
+//     License: MIT http://opensource.org/licenses/MIT
+//     Contact: Eric Wu<wu.takung@dxc.com>
+//
+// swagger:meta
 package main
 
 import (
 	"fmt"
 
-	message "eric.com/go/ch1/msg"
-	//service "eric.com/go/ch1/pk1"
-	//"time"
+	"time"
+
+	service "eric.com/go/ch1/pk1"
 	//dbmenu "eric.com/go/ch1/pk2"
 	//	jwtctrl "eric.com/go/ch1/pk3"
 	//"encoding/json"
@@ -13,10 +33,7 @@ import (
 
 func main() {
 
-	d := message.Content["jsonconverror"]
-
-	fmt.Println(d.Message)
-	//fmt.Println(time.Now())
+	fmt.Println(time.Now())
 	/*
 		fmt.Println(time.Now())
 		token := jwtctrl.GenJWToken(36000, 1, "eric", "10.8.0.116")
@@ -31,7 +48,7 @@ func main() {
 
 		fmt.Println(time.Now())
 	*/
-	//service.ServerOn()
+	service.ServerOn()
 
 }
 

@@ -6,7 +6,7 @@
 },
 {
     "name":"getToken",
-    "method":"GET",
+    "method":"POST",
     "path":"/getToken",
     "handlefunc":"getToken"
 }
