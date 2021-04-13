@@ -95,7 +95,7 @@ func InUpDeDB2(db *a.DBP, sql2 string, datas [][]interface{}, commitnum int) {
 			fmt.Println("execute failed,error： ", err)
 			fmt.Println("error insert data : ", data)
 			tx.Rollback()
-			return
+			//return 失敗印出繼續往下處理
 
 		}
 		count := i + 1
