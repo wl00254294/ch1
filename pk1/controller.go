@@ -11,24 +11,7 @@ import (
 )
 
 func getToken(w http.ResponseWriter, r *http.Request) {
-	// swagger:route POST /getToken Auth User
-	//
-	// get JWT
-	//
-	//
-	//     Consumes:
-	//     - application/json
-	//
-	//     Produces:
-	//     - application/json
-	//
-	//     Schemes: http
-	//
-	//     Deprecated: false
-	//
-	//
-	//     Responses:
-	//       200: CustomToken
+
 	var p dao.User
 	err := json.NewDecoder(r.Body).Decode(&p)
 	if err != nil {

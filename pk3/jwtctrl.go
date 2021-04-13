@@ -17,16 +17,11 @@ type CustomClaims struct {
 	jwt.StandardClaims
 }
 
-// swagger:response CustomToken
 type CustomToken struct {
-	// The Userid
-	Userid int64 `json:"userid"`
-	// Response token
-	Token string `json:"token"`
-	// Expired Time
+	Userid    int64     `json:"userid"`
+	Token     string    `json:"token"`
 	Expiresat time.Time `json:"expiresat"`
-	// token status
-	Message string `json:"message"`
+	Message   string    `json:"message"`
 }
 
 func GenJWToken(efftime int, user dao.User) CustomToken {
